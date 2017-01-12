@@ -12,7 +12,7 @@
     - Request - `{ Ids }`
     - Reply - `{ }`
  - ListUsers
-    - Request - `{ Id, Page, PageSize }`
+    - Request - `{ Page, PageSize }`
     - Reply - `{ User[], Total }`
  - CountUsers
     - Request - `{ }`
