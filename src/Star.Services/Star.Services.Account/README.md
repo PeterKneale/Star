@@ -14,7 +14,7 @@
  - ListAccounts
     - Request - `{ Id, Page, PageSize }`
     - Reply - `{ Account[], Total }`
- - CountAccount
+ - CountAccounts
     - Request - `{ }`
     - Reply - `Count`
  
@@ -23,6 +23,6 @@
     - { Id, Name }  
     
 - Events
- - AccountCreatedEvent - `{ Id, Name }`
+ - AccountCreatedEvent - `{ Id }`
  - AccountUpdatedEvent - `{ Id, OldName, NewName }`
- - AccountDeletedEvent - `{ Id, Name }`
+ - AccountDeletedEvent - `{ Id }`
