@@ -1,10 +1,10 @@
 - Operations
   - SetTags
-    - Request - `{ Id, Tags[] }`
+    - Request - `{ Ids[Tags[]] }`
     - Reply - `{ }`
   - GetTags
-    - Request - `{ Id }`
-    - Reply - `{ Tags }` }`
+    - Request - `{ Ids }`
+    - Reply - `{ Ids[Tags[]] }` }`
     
 - Events
  - TagsSetEvent - `{ Id, Tags[] }`
