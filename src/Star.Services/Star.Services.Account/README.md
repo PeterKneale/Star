@@ -19,8 +19,7 @@
     - Reply - `Count`
  
 - Models
-  - Account
-    - { Id, Name }  
+  - Account `{ Id, Name }`
     
 - Events
  - AccountCreatedEvent - `{ Id }`
