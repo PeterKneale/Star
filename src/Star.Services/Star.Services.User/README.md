@@ -2,14 +2,14 @@
   - CreateUser
     - Request - `{ Id, Name }`
     - Reply - `{ User }`
- - GetUser
-    - Request - `{ Id }`
-    - Reply - `{ User }`
+ - GetUsers
+    - Request - `{ Ids }`
+    - Reply - `{ User[] }`
  - UpdateUser
     - Request - `{ Id, Name }`
     - Reply - `{ User }`
- - DeleteUser
-    - Request - `{ Id }`
+ - DeleteUsers
+    - Request - `{ Ids }`
     - Reply - `{ }`
  - ListUsers
     - Request - `{ Id, Page, PageSize }`
