@@ -12,7 +12,7 @@
     - Request - `{ Id }`
     - Reply - `{ }`
  - ListAccounts
-    - Request - `{ Id, Page, PageSize }`
+    - Request - `{ Page, PageSize }`
     - Reply - `{ Account[], Total }`
  - CountAccounts
     - Request - `{ }`
