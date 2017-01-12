@@ -1,4 +1,10 @@
 - Operations
+  - AddTags
+    - Request - `{ Ids[Tags[]] }`
+    - Reply - `{ }`
+  - RemoveTags
+    - Request - `{ Ids[Tags[]] }`
+    - Reply - `{ }`
   - SetTags
     - Request - `{ Ids[Tags[]] }`
     - Reply - `{ }`
