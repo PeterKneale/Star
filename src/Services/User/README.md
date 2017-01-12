@@ -1,0 +1,33 @@
+- Operations
+  - CreateUser
+    - Request - `{ Id, Name }`
+    - Reply - `{ User }`
+ - GetUser
+    - Request - `{ Id }`
+    - Reply - `{ User }`
+ - GetUsers
+    - Request - `{ Ids[] }`
+    - Reply - `{ User[] }`
+ - UpdateUser
+    - Request - `{ Id, Name }`
+    - Reply - `{ User }`
+ - DeleteUser
+    - Request - `{ Id }`
+    - Reply - `{ }`
+ - DeleteUsers
+    - Request - `{ Ids[] }`
+    - Reply - `{ }`
+ - ListUsers
+    - Request - `{ Page, PageSize }`
+    - Reply - `{ User[], Total }`
+ - CountUsers
+    - Request - `{ }`
+    - Reply - `Count`
+ 
+- Models
+  - User `{ Id, Name }`
+    
+- Events
+ - UserCreatedEvent - `{ Id }`
+ - UserUpdatedEvent - `{ Id, OldName, NewName }`
+ - UserDeletedEvent - `{ Id }`

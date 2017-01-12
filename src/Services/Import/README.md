@@ -1,0 +1,23 @@
+- Operations
+  - CreateImport
+    - Request - `{ Id, AccountId, UserId, Name, Data[] }`
+    - Reply - `{ Account }`
+ - GetImport
+    - Request - `{ Id }`
+    - Reply - `{ Import }`
+ - DeleteImport
+    - Request - `{ Id }`
+    - Reply - `{ }`
+ - ListImports
+    - Request - `{ AccountId, UserId, Page, PageSize }`
+    - Reply - `{ Import[], Total }`
+ - CountImports
+    - Request - `{ AccountId, UserId }`
+    - Reply - `Count`
+ 
+- Models
+  - Import `{ Id, Name }`
+    
+- Events
+ - ImportCreatedEvent - `{ Id }`
+ - ImportDeletedEvent - `{ Id }`
