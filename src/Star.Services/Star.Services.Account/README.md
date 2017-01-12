@@ -1,6 +1,28 @@
-- `CreateAccountRequest` - `{ Id, Name }`
-- `GetAccountRequest` - `{ Id }`
-- `UpdateAccountRequest` - `{ Id, Name }`
-- `DeleteAccountRequest` - `{ Id }`
-- `ListAccountsRequest`
-- `CountAccountsRequest`
+- Operations
+  - CreateAccount
+    - Request - `{ Id, Name }`
+    - Reply - `{ Account }`
+ - GetAccount
+    - Request - `{ Id }`
+    - Reply - `{ Account }`
+ - UpdateAccount
+    - Request - `{ Id, Name }`
+    - Reply - `{ Account }`
+ - DeleteAccount
+    - Request - `{ Id }`
+    - Reply - `{ }`
+ - ListAccounts
+    - Request - `{ Id, Page, PageSize }`
+    - Reply - `{ Account[], Total }`
+ - CountAccount
+    - Request - `{ }`
+    - Reply - `Count`
+ 
+- Models
+  - Account
+    - { Id, Name }  
+    
+- Events
+ - AccountCreatedEvent - `{ Id, Name }`
+ - AccountUpdatedEvent - `{ Id, OldName, NewName }`
+ - AccountDeletedEvent - `{ Id, Name }`
