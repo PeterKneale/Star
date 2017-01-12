@@ -1,0 +1,6 @@
+- `CreateAccountRequest` - `{ Id, Name }`
+- `GetAccountRequest` - `{ Id }`
+- `UpdateAccountRequest` - `{ Id, Name }`
+- `DeleteAccountRequest` - `{ Id }`
+- `ListAccountsRequest`
+- `CountAccountsRequest`
