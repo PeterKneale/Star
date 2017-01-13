@@ -1,0 +1,31 @@
+{
+  "version": "1.0.0-*",
+  "buildOptions": {
+    "debugType": "portable",
+    "emitEntryPoint": true  },
+  "dependencies": {
+    "Microsoft.AspNetCore.Server.Kestrel": "1.0.1",
+    "Microsoft.AspNetCore.StaticFiles": "1.0.0",
+    "Services.User.Models": "1.0.0-*",
+    "ServiceStack.Client.Core": "1.0.*",
+    "ServiceStack.Common.Core": "1.0.*",
+    "ServiceStack.Core": "1.0.*",
+    "ServiceStack.Interfaces.Core": "1.0.*",
+    "ServiceStack.OrmLite.PostgreSQL.Core": "1.0.30",
+    "ServiceStack.OrmLite.Sqlite.Core": "1.0.30",
+    "ServiceStack.RabbitMq.Core": "1.0.30",
+    "ServiceStack.Text.Core": "1.0.*",
+    "Npgsql" :"3.1.8"
+  },
+  "frameworks": {
+    "netcoreapp1.1": {
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "type": "platform",
+          "version": "1.1.0"
+        }
+      },
+      "imports": ["dnxcore50","win10-x64"]
+    }
+  }
+}

@@ -1,0 +1,20 @@
+- Operations
+  - CreateFile
+    - Request - `{ Id, Data[] }`
+    - Reply - `{ }`
+  - GetFile
+    - Request - `{ Id }`
+    - Reply - `{ Data[] }`
+  - DeleteFile
+    - Request - `{ Id }`
+    - Reply - `{ Data[] }`
+  - ListFiles
+    - Request - `{ Page, PageSize }`
+    - Reply - `{ Id[], Total }`
+  - CountFiles
+    - Request - `{ }`
+    - Reply - `Count`
+    
+- Events
+ - FileCreatedEvent - `{ Id }`
+ - FileDeletedEvent - `{ Id }`

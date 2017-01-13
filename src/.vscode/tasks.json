@@ -1,0 +1,36 @@
+{
+    "version": "0.1.0",
+    "command": "dotnet",
+    "isShellCommand": true,
+    "suppressTaskName": false,
+    "args": [],
+    "tasks": [
+        {
+            "taskName": "build",
+            "args": [
+                "Services.Gateway"
+            ],
+            "isBuildCommand": true,
+            "showOutput": "always",
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "taskName": "build",
+            "args": [
+                "Services.Account"
+            ],
+            "isBuildCommand": true,
+            "showOutput": "always",
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "taskName": "build",
+            "args": [
+                "Services.User"
+            ],
+            "isBuildCommand": true,
+            "showOutput": "always",
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}
