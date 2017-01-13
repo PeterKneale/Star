@@ -25,7 +25,7 @@ namespace Services.Gateway
                 
             var accountResponse = await Gateway.SendAsync(accountRequest);
             var userResponse = await Gateway.SendAsync(userRequest);
-
+ 
             return new CreateAccountResponse
             {
                 AccountId = accountResponse.Account.Id,
