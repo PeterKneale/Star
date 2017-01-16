@@ -16,7 +16,6 @@ namespace Services.Account.Models
     public class CreateAccountResponse
     {
         public AccountModel Account { get; set; }
-        public string Result { get; set; }
     }
 
     public class AccountCreatedEvent

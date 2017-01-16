@@ -8,25 +8,7 @@
         {
             "taskName": "build",
             "args": [
-                "Services.Gateway"
-            ],
-            "isBuildCommand": true,
-            "showOutput": "always",
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "taskName": "build",
-            "args": [
-                "Services.Account"
-            ],
-            "isBuildCommand": true,
-            "showOutput": "always",
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "taskName": "build",
-            "args": [
-                "Services.User"
+                "Build"
             ],
             "isBuildCommand": true,
             "showOutput": "always",

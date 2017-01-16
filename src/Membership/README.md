@@ -1,11 +1,11 @@
 - Operations
-  - AddUserToAccount
+  - CreateMember
     - Request - `{ UserId, AccountId }`
     - Reply - `{ }`
-  - RemoveUserFromAccount
+  - DeleteMember
     - Request - `{ UserId, AccountId }`
     - Reply - `{ }`
-  - ListUsersByAccount
+  - GetMembers
     - Request - `{ AccountId, Page, PageSize }`
     - Reply - `{ UserId[], Total }`
     

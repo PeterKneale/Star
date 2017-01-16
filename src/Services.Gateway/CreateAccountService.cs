@@ -2,6 +2,7 @@ using ServiceStack;
 using Services.Gateway.Models;
 using Accounts = Services.Account.Models;
 using Users = Services.User.Models;
+using Members = Services.Membership.Models;
 using System.Threading.Tasks;
 using System;
 
@@ -11,25 +12,34 @@ namespace Services.Gateway
     {
         public async Task<CreateAccountResponse> Post(CreateAccount request)
         {
+            var accountId = Guid.NewGuid();
+            var userId = Guid.NewGuid();
+
             var accountRequest = new Accounts.CreateAccount
             {
-                Id = Guid.NewGuid(),
+                Id = accountId,
                 Name = request.Name
             };
             var userRequest = new Users.CreateUser
             {
-                Id = Guid.NewGuid(),
+                Id = userId,
                 FirstName = request.FirstName,
                 LastName = request.LastName
             };
+            var memberRequest = new Members.CreateMember
+            {
+                UserId = userId,
+                AccountId = accountId
+            };
                 
-            var accountResponse = await Gateway.SendAsync(accountRequest);
-            var userResponse = await Gateway.SendAsync(userRequest);
+            await Gateway.SendAsync(accountRequest);
+            await Gateway.SendAsync(userRequest);
+            await Gateway.SendAsync(memberRequest);
  
             return new CreateAccountResponse
             {
-                AccountId = accountResponse.Account.Id,
-                UserId = userResponse.User.Id
+                AccountId = accountId,
+                UserId = userId
             };
         }
     }

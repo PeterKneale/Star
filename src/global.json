@@ -1,5 +1,7 @@
 {
     "projects": [
+        "Build",
+        
         "Services.Gateway",
         "Services.Gateway.Models",
         "Services.Gateway.Tests",
@@ -10,6 +12,10 @@
 
         "Services.User",
         "Services.User.Models",
-        "Services.User.Tests"
+        "Services.User.Tests",
+        
+        "Services.Membership",
+        "Services.Membership.Models",
+        "Services.Membership.Tests"
     ]
 }

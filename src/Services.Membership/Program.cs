@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -7,11 +6,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Funq;
 using ServiceStack;
 using ServiceStack.Logging;
-using ServiceStack.Messaging;
-using ServiceStack.Web;
-using System.Collections.Generic;
+using ServiceStack.OrmLite;
+using ServiceStack.Data;
 
-namespace Services.Gateway
+namespace Services.Membership
 {
     public class Program
     {
@@ -21,7 +19,7 @@ namespace Services.Gateway
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseStartup<Startup>()
-                .UseUrls($"http://localhost:80/")
+                .UseUrls($"http://localhost:83/")
                 .Build();
 
             host.Run();
@@ -58,56 +56,23 @@ namespace Services.Gateway
         public override void Configure(Container container)
         {
             LogManager.LogFactory = new ConsoleLogFactory(debugEnabled: true);
-            var log = LogManager.GetLogger(typeof(AppHost));
-
+            var log = LogManager.GetLogger(typeof(AppHost));            
+            
             Plugins.Add(new PostmanFeature());
             Plugins.Add(new CorsFeature());
 
             SetConfig(new HostConfig { DebugMode = true });
-
-            container.Register<IServiceGatewayFactory>(x => new CustomServiceGatewayFactory())
-                .ReusedWithin(ReuseScope.None);
-
+            
             this.ServiceExceptionHandlers.Add((httpReq, request, exception) =>
             {
                 log.Error($"Error: {exception.Message}. {exception.StackTrace}.", exception);
                 return null;
             });
-        }
-    }
 
+            var dbFactory = new OrmLiteConnectionFactory("Server=192.168.99.103;Port=32768;Database=postgres;User Id=postgres;", PostgreSqlDialect.Provider);       
+            dbFactory.OpenDbConnection().CreateTable<MemberData>(true);
+            container.Register<IDbConnectionFactory>(c => dbFactory);
 
-    public class CustomServiceGatewayFactory : ServiceGatewayFactoryBase
-    {
-        public override IServiceGateway GetGateway(Type requestType)
-        {
-            var isLocal = HostContext.Metadata.RequestTypes.Contains(requestType);
-            var gateway = isLocal
-                ? (IServiceGateway)base.localGateway
-                : new JsonServiceClient(GetEndpoint(requestType));
-            return gateway;
-        }
-
-        private string GetEndpoint(Type requestType)
-        {
-            Console.WriteLine(requestType.FullName);
-
-            if (requestType.FullName.Contains("Services.Membership"))
-            {
-                Console.WriteLine($"Routing {0} to {1} Service", requestType.FullName, "Member");
-                return "http://localhost:83";
-            }
-            if (requestType.FullName.Contains("Services.Account"))
-            {
-                Console.WriteLine($"Routing {0} to {1} Service", requestType.FullName, "Account");
-                return "http://localhost:81";
-            }
-            if (requestType.FullName.Contains("Services.User"))
-            {
-                Console.WriteLine($"Routing {0} to {1} Service", requestType.FullName, "User");
-                return "http://localhost:82";
-            }
-            throw new NotSupportedException("Couldn't figure out the endpoint");
         }
     }
 }
