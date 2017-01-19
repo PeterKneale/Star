@@ -1,0 +1,14 @@
+- Operations
+  - CreateMember
+    - Request - `{ UserId, AccountId }`
+    - Reply - `{ }`
+  - DeleteMember
+    - Request - `{ UserId, AccountId }`
+    - Reply - `{ }`
+  - GetMembers
+    - Request - `{ AccountId, Page, PageSize }`
+    - Reply - `{ UserId[], Total }`
+    
+- Events
+ - UserAddedToAccountEvent - `{ UserId, AccountId }`
+ - UserRemovedFromAccountEvent - `{ UserId, AccountId }`
