@@ -8,7 +8,6 @@ using ServiceStack;
 using ServiceStack.Logging;
 using ServiceStack.OrmLite;
 using ServiceStack.Data;
-using ServiceStack.Validation;
 
 namespace Services.Account
 {
@@ -20,7 +19,7 @@ namespace Services.Account
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseStartup<Startup>()
-                .UseUrls($"http://localhost:81/")
+                .UseUrls($"http://localhost:8080/")
                 .Build();
 
             host.Run();
@@ -70,7 +69,8 @@ namespace Services.Account
                 return null;
             });
 
-            var dbFactory = new OrmLiteConnectionFactory("Server=db;Port=5432;Database=postgres;User Id=postgres;", PostgreSqlDialect.Provider);       
+            //var dbFactory = new OrmLiteConnectionFactory("Server=db;Port=5432;Database=postgres;User Id=postgres;", PostgreSqlDialect.Provider);       
+            var dbFactory = new OrmLiteConnectionFactory(":memory:", SqliteDialect.Provider);
             dbFactory.OpenDbConnection().CreateTable<AccountData>(true);
             container.Register<IDbConnectionFactory>(c => dbFactory);
         }
