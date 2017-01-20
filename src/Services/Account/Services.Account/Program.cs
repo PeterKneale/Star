@@ -8,6 +8,7 @@ using ServiceStack;
 using ServiceStack.Logging;
 using ServiceStack.OrmLite;
 using ServiceStack.Data;
+using System;
 
 namespace Services.Account
 {
@@ -56,13 +57,19 @@ namespace Services.Account
         public override void Configure(Container container)
         {
             LogManager.LogFactory = new ConsoleLogFactory(debugEnabled: true);
-            var log = LogManager.GetLogger(typeof(AppHost));            
+            var log = LogManager.GetLogger(typeof(AppHost));
+
+            var variables = Environment.GetEnvironmentVariables();
+            foreach (System.Collections.DictionaryEntry variable in variables)
+            {
+                log.InfoFormat(" ENV {0} = {1}", variable.Key, variable.Value);
+            }
             
             Plugins.Add(new PostmanFeature());
             Plugins.Add(new CorsFeature());
-            
+
             SetConfig(new HostConfig { DebugMode = true });
-            
+
             this.ServiceExceptionHandlers.Add((httpReq, request, exception) =>
             {
                 log.Error($"Error: {exception.Message}. {exception.StackTrace}.", exception);
