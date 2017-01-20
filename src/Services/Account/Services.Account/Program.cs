@@ -70,7 +70,7 @@ namespace Services.Account
                 return null;
             });
 
-            var dbFactory = new OrmLiteConnectionFactory("Server=192.168.99.103;Port=32768;Database=postgres;User Id=postgres;", PostgreSqlDialect.Provider);       
+            var dbFactory = new OrmLiteConnectionFactory("Server=db;Port=5432;Database=postgres;User Id=postgres;", PostgreSqlDialect.Provider);       
             dbFactory.OpenDbConnection().CreateTable<AccountData>(true);
             container.Register<IDbConnectionFactory>(c => dbFactory);
         }
