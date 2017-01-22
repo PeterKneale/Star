@@ -19,7 +19,6 @@ namespace Services.Account.Tests
             _container.RegisterAutoWired<CountAccountsService>();
             _container.RegisterAutoWired<CreateAccountService>();
             _container.RegisterAutoWired<DeleteAccountService>();
-            _container.RegisterAutoWired<DeleteAccountsService>();
             _container.RegisterAutoWired<GetAccountService>();
             _container.RegisterAutoWired<GetAccountsService>();
 

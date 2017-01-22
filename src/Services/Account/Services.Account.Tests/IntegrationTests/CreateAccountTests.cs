@@ -42,21 +42,26 @@ namespace Services.Account.Tests
             var id = new Guid("b8d47dce23074128be1d3537b02dcd62");
             var name = "Account Name";
             var service = _context.Resolve<CreateAccountService>();
+            var countService = _context.Resolve<CountAccountsService>();
 
             // act
-            var response1 = service.Post(new CreateAccount { Id = id, Name = name });
-            var response2 = service.Post(new CreateAccount { Id = id, Name = name }); // Second create call with the same id
+            var createResponse1 = service.Post(new CreateAccount { Id = id, Name = name });
+            var createResponse2 = service.Post(new CreateAccount { Id = id, Name = name }); // Second create call with the same id
+            var countResponse = countService.Get(new CountAccounts());
 
             // assert
-            Assert.NotNull(response1);
-            Assert.NotNull(response1.Account);
-            Assert.Equal(id, response1.Account.Id);
-            Assert.Equal(name, response1.Account.Name);
+            Assert.NotNull(createResponse1);
+            Assert.NotNull(createResponse1.Account);
+            Assert.Equal(id, createResponse1.Account.Id);
+            Assert.Equal(name, createResponse1.Account.Name);
             
-            Assert.NotNull(response2);
-            Assert.NotNull(response2.Account);
-            Assert.Equal(id, response2.Account.Id);
-            Assert.Equal(name, response2.Account.Name);
+            Assert.NotNull(createResponse2);
+            Assert.NotNull(createResponse2.Account);
+            Assert.Equal(id, createResponse2.Account.Id);
+            Assert.Equal(name, createResponse2.Account.Name);
+            
+            Assert.NotNull(countResponse);
+            Assert.Equal(1, countResponse.Total); // Idempotent
         }
 
         [Fact]
