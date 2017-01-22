@@ -21,6 +21,8 @@ namespace Services.Account.Tests
             _container.RegisterAutoWired<DeleteAccountService>();
             _container.RegisterAutoWired<GetAccountService>();
             _container.RegisterAutoWired<GetAccountsService>();
+            _container.RegisterAutoWired<AliveService>();
+            _container.RegisterAutoWired<ReadyService>();
 
             using (var db = _container.Resolve<IDbConnectionFactory>().Open())
             {
