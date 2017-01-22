@@ -58,11 +58,12 @@ namespace Services.Account
         {
             LogManager.LogFactory = new ConsoleLogFactory(debugEnabled: true);
             var log = LogManager.GetLogger(typeof(AppHost));
+            log.Info("Starting account service");
 
             var variables = Environment.GetEnvironmentVariables();
             foreach (System.Collections.DictionaryEntry variable in variables)
             {
-                log.InfoFormat(" ENV {0} = {1}", variable.Key, variable.Value);
+                log.InfoFormat("ENV {0} = {1}", variable.Key, variable.Value);
             }
             
             Plugins.Add(new PostmanFeature());
