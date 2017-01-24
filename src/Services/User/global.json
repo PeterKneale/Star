@@ -1,0 +1,7 @@
+{
+    "projects": [
+        "Services.User",
+        "Services.User.Models",
+        "Services.User.Tests"
+    ]
+}

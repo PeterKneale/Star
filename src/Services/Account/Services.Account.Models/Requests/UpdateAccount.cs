@@ -3,8 +3,8 @@ using ServiceStack;
 
 namespace Services.Account.Models
 {
-    [Route("/Account", "POST", Summary = "Create an Account")]
-    public class CreateAccount : IPost, IReturn<CreateAccountResponse>
+    [Route("/Account", "PUT", Summary = "Update an Account")]
+    public class UpdateAccount : IPut, IReturn<UpdateAccountResponse>
     {
         [ApiMember(Name = "Id", Description = "Id", ParameterType = "path", DataType = "uniqueidentifier", IsRequired = true)]
         public Guid Id { get; set; }
@@ -13,12 +13,12 @@ namespace Services.Account.Models
         public string Name { get; set; }
     }
 
-    public class CreateAccountResponse
+    public class UpdateAccountResponse
     {
         public AccountModel Account { get; set; }
     }
 
-    public class AccountCreatedEvent
+    public class AccountUpdatedEvent
     {
         public Guid Id { get; set; }
     }

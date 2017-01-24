@@ -1,7 +1,7 @@
 using System;
 using ServiceStack;
 
-namespace Services.Account.Models
+namespace Services.User.Models
 {
     [Route("/Ready", "GET", Summary = "Check service is ready")]
     public class Ready : IGet, IReturn<ReadyResponse>

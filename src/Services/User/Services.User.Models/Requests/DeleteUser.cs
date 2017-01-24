@@ -1,21 +1,21 @@
 using System;
 using ServiceStack;
 
-namespace Services.Account.Models
+namespace Services.User.Models
 {
-    [Route("/Account/{id}", "DELETE", Summary = "Delete an Account")]
-    public class DeleteAccount : IDelete, IReturn<DeleteAccountResponse>
+    [Route("/User/{id}", "DELETE", Summary = "Delete an User")]
+    public class DeleteUser : IReturn<DeleteUserResponse>
     {
         [ApiMember(Name = "Id", Description = "Identifier", ParameterType = "path", DataType = "guid", IsRequired = true)]
         public Guid Id { get; set; }
     }
 
-    public class DeleteAccountResponse
+    public class DeleteUserResponse
     {
-
+        
     }
 
-    public class AccountDeletedEvent
+    public class UserDeletedEvent
     {
         public int Id { get; set; }
     }

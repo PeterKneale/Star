@@ -3,7 +3,7 @@ using Funq;
 using ServiceStack.Data;
 using ServiceStack.OrmLite;
 
-namespace Services.Account.Tests
+namespace Services.User.Tests
 {
     public class TestContext : IDisposable
     {
@@ -14,20 +14,19 @@ namespace Services.Account.Tests
             _container = new Container();
 
             _container.Register<IDbConnectionFactory>(new OrmLiteConnectionFactory(":memory:", SqliteDialect.Provider));
-
-            // TODO: Figure out a way to remove this
-            _container.RegisterAutoWired<CountAccountsService>();
-            _container.RegisterAutoWired<CreateAccountService>();
-            _container.RegisterAutoWired<DeleteAccountService>();
-            _container.RegisterAutoWired<GetAccountService>();
-            _container.RegisterAutoWired<GetAccountsService>();
-            _container.RegisterAutoWired<UpdateAccountService>();
+            
+            _container.RegisterAutoWired<CountUsersService>();
+            _container.RegisterAutoWired<CreateUserService>();
+            _container.RegisterAutoWired<DeleteUserService>();
+            _container.RegisterAutoWired<GetUserService>();
+            _container.RegisterAutoWired<GetUsersService>();
+            _container.RegisterAutoWired<UpdateUserService>();
             _container.RegisterAutoWired<AliveService>();
             _container.RegisterAutoWired<ReadyService>();
 
             using (var db = _container.Resolve<IDbConnectionFactory>().Open())
             {
-                db.DropAndCreateTable<AccountData>();
+                db.DropAndCreateTable<UserData>();
             }
         }
         public T Resolve<T>()

@@ -4,7 +4,7 @@ using ServiceStack;
 namespace Services.Account.Models
 {
     [Route("/Account", "GET", Summary = "Get all Accounts")]
-    public class GetAccounts : IGet,IReturn<GetAccountsResponse>
+    public class GetAccounts : IGet, IReturn<GetAccountsResponse>
     {
 
     }
@@ -12,6 +12,5 @@ namespace Services.Account.Models
     public class GetAccountsResponse
     {
         public AccountModel[] Accounts { get; set; }
-        public long Total { get; set; }
     }
 }

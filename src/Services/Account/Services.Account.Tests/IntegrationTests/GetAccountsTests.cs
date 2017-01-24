@@ -37,7 +37,6 @@ namespace Services.Account.Tests
             Assert.NotNull(response);
             Assert.NotNull(response.Accounts);
             Assert.Equal(accounts, response.Accounts.Length);
-            Assert.Equal(accounts, response.Total);
         }
 
     }

@@ -1,14 +1,14 @@
 using System;
-using Services.Account.Models;
+using Services.User.Models;
 using Xunit;
 
-namespace Services.Account.Tests
+namespace Services.User.Tests
 {
-    public class AliveTests : IDisposable
+    public class ReadyTests : IDisposable
     {
         private TestContext _context;
 
-        public AliveTests()
+        public ReadyTests()
         {
             _context = new TestContext();
         }
@@ -19,17 +19,17 @@ namespace Services.Account.Tests
 
 
         [Fact]
-        public void Alive()
+        public void Ready()
         {
             // arrange
-            var service = _context.Resolve<AliveService>();
+            var service = _context.Resolve<ReadyService>();
 
             // act
-            var response = service.Get(new Alive());
+            var response = service.Get(new Ready());
 
             // assert
             Assert.NotNull(response);
-            Assert.Equal("Account", response.ServiceName);
+            Assert.Equal("User", response.ServiceName);
         }
     }
 }

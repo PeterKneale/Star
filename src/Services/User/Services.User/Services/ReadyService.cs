@@ -1,9 +1,9 @@
-using Services.Account.Models;
+using Services.User.Models;
 using ServiceStack;
 using ServiceStack.Data;
 using ServiceStack.OrmLite;
 
-namespace Services.Account
+namespace Services.User
 {
     public class ReadyService : IService
     {
@@ -17,7 +17,7 @@ namespace Services.Account
         public ReadyResponse Get(Ready request)
         {
             CheckDatabaseConnection();
-            return new ReadyResponse { ServiceName ="Account" };
+            return new ReadyResponse { ServiceName ="User" };
         }
 
         void CheckDatabaseConnection()

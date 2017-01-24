@@ -15,7 +15,7 @@
     "ServiceStack.OrmLite.Sqlite.Core": "1.0.30",
     "ServiceStack.RabbitMq.Core": "1.0.30",
     "ServiceStack.Text.Core": "1.0.*",
-    "Npgsql" :"3.1.8"
+    "Npgsql": "3.1.8"
   },
   "frameworks": {
     "netcoreapp1.1": {

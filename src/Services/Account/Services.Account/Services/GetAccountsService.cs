@@ -19,10 +19,9 @@ namespace Services.Account
             using (var db = _dbFactory.OpenDbConnection())
             {
                 var data = db.Select<AccountData>();
-                var count = db.Count<AccountData>();
 
                 var Accounts = data.Select(x => x.ConvertTo<AccountModel>()).ToArray();
-                return new GetAccountsResponse { Accounts = Accounts, Total = count };
+                return new GetAccountsResponse { Accounts = Accounts };
             }
         }
 

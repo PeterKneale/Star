@@ -1,8 +1,8 @@
 using System;
-using Services.Account.Models;
+using Services.User.Models;
 using Xunit;
 
-namespace Services.Account.Tests
+namespace Services.User.Tests
 {
     public class AliveTests : IDisposable
     {
@@ -29,7 +29,7 @@ namespace Services.Account.Tests
 
             // assert
             Assert.NotNull(response);
-            Assert.Equal("Account", response.ServiceName);
+            Assert.Equal("User", response.ServiceName);
         }
     }
 }
