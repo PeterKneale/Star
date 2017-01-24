@@ -1,22 +1,58 @@
 using System;
 using Services.Membership.Models;
 using ServiceStack;
+using ServiceStack.Data;
 using ServiceStack.OrmLite;
 
 namespace Services.Membership
 {
-    public class CreateMemberService : ServiceStack.Service
+    public class CreateMemberService : IService
     {
+        IDbConnectionFactory _dbFactory;
+
+        public CreateMemberService(IDbConnectionFactory dbFactory)
+        {
+            _dbFactory = dbFactory;
+        }
+
         public CreateMemberResponse Post(CreateMember request)
         {
-            bool exists = Db.Exists<MemberData>(x => x.AccountId == request.AccountId && x.UserId == request.UserId);
+            var accountId = request.AccountId;
+            var userId = request.UserId;
 
-            if (!exists)
+            Validate(accountId);
+            Validate(userId);
+
+            if (!Exists(accountId, userId))
             {
-                Db.Insert(new MemberData { Id= Guid.NewGuid(), UserId = request.UserId, AccountId = request.AccountId });
+                Create(accountId, userId);
             }
 
-            return new CreateMemberResponse { };
+            return new CreateMemberResponse { AccountId = accountId, UserId = userId };
+        }
+
+        void Create(Guid accountId, Guid userId)
+        {
+            using (var db = _dbFactory.OpenDbConnection())
+            {
+                db.Insert(new MemberData { AccountId = accountId, UserId = userId });
+            }
+        }
+        
+        bool Exists(Guid accountId, Guid userId)
+        {
+            using (var db = _dbFactory.OpenDbConnection())
+            {
+                return db.Exists<MemberData>(x => x.AccountId == accountId && x.UserId == userId);
+            }
+        }
+
+        void Validate(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                throw new ArgumentException("Id must be supplied");
+            }
         }
     }
 }
