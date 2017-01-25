@@ -9,7 +9,7 @@ namespace Services.Gateway
 {
     public class GetAccountService : Service
     {
-        public async Task<GetAccountResponse> Post(GetAccount request)
+        public async Task<GetAccountResponse> Get(GetAccount request)
         {
             var accountRequest = new Accounts.GetAccount { Id = Guid.NewGuid() };
 

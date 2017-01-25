@@ -7,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Funq;
 using ServiceStack;
 using ServiceStack.Logging;
-using ServiceStack.Messaging;
 using ServiceStack.Web;
 using System.Collections.Generic;
 using ServiceStack.Auth;
@@ -66,7 +65,9 @@ namespace Services.Gateway
 
             Plugins.Add(new AuthFeature(() => new AuthUserSession(),
                 new IAuthProvider[] {
-                    new JwtAuthProvider(AppSettings) { AuthKey = AesUtils.CreateKey() },
+                    new JwtAuthProvider(AppSettings) {
+                        AuthKeyBase64 = "cXdlcnR5dWlvcGFzZGZnaGprbHp4Y3Zibm0xMjM0NTY=" 
+                    },
                     new CredentialsAuthProvider(AppSettings)
                 }));
 
@@ -74,6 +75,7 @@ namespace Services.Gateway
 
             container.Register<IServiceGatewayFactory>(x => new CustomServiceGatewayFactory())
                 .ReusedWithin(ReuseScope.None);
+
 
             this.ServiceExceptionHandlers.Add((httpReq, request, exception) =>
             {
@@ -98,20 +100,28 @@ namespace Services.Gateway
         private string GetEndpoint(Type requestType)
         {
             var services = new Dictionary<string, string>{
-                {"Services.Membership","http://localhost:83"},
-                {"Services.Account","http://localhost:81"},
-                {"Services.User","http://localhost:82"}
+                {"Membership","http://localhost:83"},
+                {"Account","http://localhost:81"},
+                {"User","http://localhost:82"}
             };
-            foreach (var serviceName in services.Keys)
+
+            foreach (var service in services.Keys)
             {
-                if (requestType.FullName.Contains(serviceName))
+                if (ServiceHandles(service, requestType))
                 {
-                    var url = services[serviceName];
-                    Console.WriteLine(string.Format("Routing {0} to {1} Service at {2}", requestType.FullName, serviceName, url));
-                    return url;
+                    var address = services[service];
+                    var request = requestType.Name;
+                    Console.WriteLine(string.Format("Routing '{0}' to '{1}' service at '{2}'", request, service, address));
+
+                    return address;
                 }
             }
+
             throw new NotSupportedException("Couldn't figure out the endpoint");
+        }
+        private bool ServiceHandles(string service, Type requestType)
+        {
+            return requestType.FullName.Contains("Services." + service + ".Models");
         }
     }
 }

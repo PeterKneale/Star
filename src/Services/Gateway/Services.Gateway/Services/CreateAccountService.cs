@@ -32,6 +32,7 @@ namespace Services.Gateway
                 AccountId = accountId
             };
                 
+            
             await Gateway.SendAsync(accountRequest);
             await Gateway.SendAsync(userRequest);
             await Gateway.SendAsync(memberRequest);
