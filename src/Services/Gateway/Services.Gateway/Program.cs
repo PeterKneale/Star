@@ -69,7 +69,7 @@ namespace Services.Gateway
                     new JwtAuthProvider(AppSettings) { AuthKey = AesUtils.CreateKey() },
                     new CredentialsAuthProvider(AppSettings)
                 }));
-                
+
             SetConfig(new HostConfig { DebugMode = true });
 
             container.Register<IServiceGatewayFactory>(x => new CustomServiceGatewayFactory())
@@ -97,22 +97,19 @@ namespace Services.Gateway
 
         private string GetEndpoint(Type requestType)
         {
-            Console.WriteLine(requestType.FullName);
-
-            if (requestType.FullName.Contains("Services.Membership"))
+            var services = new Dictionary<string, string>{
+                {"Services.Membership","http://localhost:83"},
+                {"Services.Account","http://localhost:81"},
+                {"Services.User","http://localhost:82"}
+            };
+            foreach (var serviceName in services.Keys)
             {
-                Console.WriteLine($"Routing {0} to {1} Service", requestType.FullName, "Member");
-                return "http://localhost:83";
-            }
-            if (requestType.FullName.Contains("Services.Account"))
-            {
-                Console.WriteLine($"Routing {0} to {1} Service", requestType.FullName, "Account");
-                return "http://localhost:81";
-            }
-            if (requestType.FullName.Contains("Services.User"))
-            {
-                Console.WriteLine($"Routing {0} to {1} Service", requestType.FullName, "User");
-                return "http://localhost:82";
+                if (requestType.FullName.Contains(serviceName))
+                {
+                    var url = services[serviceName];
+                    Console.WriteLine(string.Format("Routing {0} to {1} Service at {2}", requestType.FullName, serviceName, url));
+                    return url;
+                }
             }
             throw new NotSupportedException("Couldn't figure out the endpoint");
         }
