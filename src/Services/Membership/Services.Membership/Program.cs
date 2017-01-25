@@ -69,7 +69,8 @@ namespace Services.Membership
                 return null;
             });
 
-            var dbFactory = new OrmLiteConnectionFactory("Server=192.168.99.103;Port=32768;Database=postgres;User Id=postgres;", PostgreSqlDialect.Provider);       
+            //var dbFactory = new OrmLiteConnectionFactory("Server=192.168.99.103;Port=32768;Database=postgres;User Id=postgres;", PostgreSqlDialect.Provider);       
+            var dbFactory = new OrmLiteConnectionFactory(":memory:", SqliteDialect.Provider);
             dbFactory.OpenDbConnection().CreateTable<MemberData>(true);
             container.Register<IDbConnectionFactory>(c => dbFactory);
 

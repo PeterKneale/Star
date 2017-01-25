@@ -14,8 +14,6 @@
     "ServiceStack.Common.Core": "1.0.*",
     "ServiceStack.Core": "1.0.*",
     "ServiceStack.Interfaces.Core": "1.0.*",
-    "ServiceStack.OrmLite.PostgreSQL.Core": "1.0.30",
-    "ServiceStack.OrmLite.Sqlite.Core": "1.0.30",
     "ServiceStack.RabbitMq.Core": "1.0.30",
     "ServiceStack.Text.Core": "1.0.*"
   },
