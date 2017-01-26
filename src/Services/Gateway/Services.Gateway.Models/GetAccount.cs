@@ -3,7 +3,7 @@ using ServiceStack;
 
 namespace Services.Gateway.Models
 {
-    [Authorize]
+    
     [Route("/account", "GET", Summary = "Get  Account")]
     public class GetAccount : IGet, IReturn<CreateAccountResponse>
     {

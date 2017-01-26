@@ -10,6 +10,9 @@ using ServiceStack.Logging;
 using ServiceStack.Web;
 using System.Collections.Generic;
 using ServiceStack.Auth;
+using ServiceStack.Configuration;
+using System.Runtime.Serialization;
+using System.Linq;
 
 namespace Services.Gateway
 {
@@ -65,17 +68,21 @@ namespace Services.Gateway
 
             Plugins.Add(new AuthFeature(() => new AuthUserSession(),
                 new IAuthProvider[] {
-                    new JwtAuthProvider(AppSettings) {
-                        AuthKeyBase64 = "cXdlcnR5dWlvcGFzZGZnaGprbHp4Y3Zibm0xMjM0NTY=" 
-                    },
-                    new CredentialsAuthProvider(AppSettings)
+                    new JwtAuthProviderReader(AppSettings) {
+                        Audience = "simplicate.net",
+                        HashAlgorithm = "HS256",
+                        AuthKeyBase64 = "cXdlcnR5dWlvcGFzZGZnaGprbHp4Y3Zibm0xMjM0NTY=",
+                        RequireSecureConnection = false
+                    }
                 }));
+
 
             SetConfig(new HostConfig { DebugMode = true });
 
+            AppSettings = new MultiAppSettings(new EnvironmentVariableSettings(), new AppSettings());
+
             container.Register<IServiceGatewayFactory>(x => new CustomServiceGatewayFactory())
                 .ReusedWithin(ReuseScope.None);
-
 
             this.ServiceExceptionHandlers.Add((httpReq, request, exception) =>
             {
@@ -94,6 +101,7 @@ namespace Services.Gateway
             var gateway = isLocal
                 ? (IServiceGateway)base.localGateway
                 : new JsonServiceClient(GetEndpoint(requestType));
+
             return gateway;
         }
 

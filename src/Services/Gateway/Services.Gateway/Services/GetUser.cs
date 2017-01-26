@@ -6,6 +6,8 @@ using System;
 
 namespace Services.Gateway
 {
+
+    [Authenticate()]    
     public class GetUserService : Service
     {
         public async Task<GetUserResponse> Get(GetUser request)

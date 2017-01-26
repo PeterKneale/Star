@@ -8,6 +8,7 @@ using System.Linq;
 
 namespace Services.Gateway
 {
+    [Authenticate()]    
     public class GetUsersService : Service
     {
         public async Task<GetUsersResponse> Get(GetUsers request)

@@ -31,12 +31,11 @@ namespace Services.Gateway
                 UserId = userId,
                 AccountId = accountId
             };
-                
-            
-            await Gateway.SendAsync(accountRequest);
-            await Gateway.SendAsync(userRequest);
-            await Gateway.SendAsync(memberRequest);
- 
+
+            await base.Gateway.SendAsync(accountRequest);
+            await base.Gateway.SendAsync(userRequest);
+            await base.Gateway.SendAsync(memberRequest);
+
             return new CreateAccountResponse
             {
                 AccountId = accountId,
