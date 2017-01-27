@@ -68,6 +68,16 @@ curl --request POST \
   --header 'content-type: application/json' \
   --data '{"Name" : "simplicate","FirstName" : "peter","LastName" : "kneale"}'
   ```
+# Login
+
+```
+curl --request POST \
+  --verbose \
+  --url http://localhost/authenticate \
+  --header 'accept: application/json' \
+  --header 'content-type: application/json' \
+  --data '{"Username":"X", "Password":"U"}'
+```
 
 ## Get current account
 

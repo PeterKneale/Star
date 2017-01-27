@@ -11,6 +11,7 @@ using ServiceStack.Web;
 using System.Collections.Generic;
 using ServiceStack.Auth;
 using ServiceStack.Configuration;
+using ServiceStack.Data;
 
 namespace Services.Gateway
 {
@@ -63,7 +64,7 @@ namespace Services.Gateway
 
             Plugins.Add(new PostmanFeature());
             Plugins.Add(new CorsFeature());
-
+            
             Plugins.Add(new AuthFeature(() => new CustomAuthUserSession(),
                 new IAuthProvider[] {
                     new JwtAuthProviderReader(AppSettings) {
@@ -71,7 +72,7 @@ namespace Services.Gateway
                         HashAlgorithm = "HS256",
                         AuthKeyBase64 = "cXdlcnR5dWlvcGFzZGZnaGprbHp4Y3Zibm0xMjM0NTY=",
                         RequireSecureConnection = false,
-
+                        
                         PopulateSessionFilter = (session, jwtJson, req) =>
                         {
                             var accountId = Guid.Parse(jwtJson["AccountId"]);
@@ -83,7 +84,9 @@ namespace Services.Gateway
                             session = customSession;
                         }
                     }
-                }));
+                }){
+                    IncludeAssignRoleServices = false
+                });
 
 
             SetConfig(new HostConfig { DebugMode = true });
@@ -92,6 +95,9 @@ namespace Services.Gateway
 
             container.Register<IServiceGatewayFactory>(x => new CustomServiceGatewayFactory())
                 .ReusedWithin(ReuseScope.None);
+            
+            container.Register<IAuthRepository>(c => new OrmLiteAuthRepository(
+                c.Resolve<IDbConnectionFactory>()));
 
             this.ServiceExceptionHandlers.Add((httpReq, request, exception) =>
             {

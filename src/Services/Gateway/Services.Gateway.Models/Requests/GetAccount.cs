@@ -5,7 +5,7 @@ namespace Services.Gateway.Models
 {
     
     [Route("/Account", "GET", Summary = "Get  Account")]
-    public class GetAccount : IGet, IReturn<CreateAccountResponse>
+    public class GetAccount : IGet, IReturn<GetAccountResponse>
     {
         public Guid Id { get; set; }
     }

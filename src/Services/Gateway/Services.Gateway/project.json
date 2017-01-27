@@ -10,6 +10,8 @@
     "Services.Gateway.Models": "1.0.0-*",
     "Services.User.Models": "1.0.0-*",
     "Services.Membership.Models": "1.0.0-*",
+    "ServiceStack.OrmLite.PostgreSQL.Core": "1.0.30",
+    "ServiceStack.OrmLite.Sqlite.Core": "1.0.30",
     "ServiceStack.Client.Core": "1.0.*",
     "ServiceStack.Common.Core": "1.0.*",
     "ServiceStack.Core": "1.0.*",
