@@ -9,13 +9,11 @@ using System.Linq;
 namespace Services.Gateway
 {
     [Authenticate()]    
-    public class GetUsersService : Service
+    public class GetUsersService : BaseService
     {
         public async Task<GetUsersResponse> Get(GetUsers request)
         {
-            var accountId = Guid.Parse("cd9d1dfca6194a978b2bf3b9fa9b4208"); // TODO: Fetch current users account id.
-            
-            var members = await Gateway.SendAsync(new Members.GetMembers{ AccountId = accountId });
+            var members = await Gateway.SendAsync(new Members.GetMembers{ AccountId = CurrentAccountId });
             
             var userIds = members.UserIds;
 

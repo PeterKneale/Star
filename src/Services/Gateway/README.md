@@ -69,12 +69,30 @@ curl --request POST \
   --data '{"Name" : "simplicate","FirstName" : "peter","LastName" : "kneale"}'
   ```
 
-## Get an account
+## Get current account
 
 ```
 curl --request GET \
-  --verbose \
-  --url http://localhost/account \
-  --header 'accept: application/json' \
-  --header 'authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzaW1wbGljYXRlLm5ldCIsImlhdCI6MTQ4NTQyOTM0NCwiZXhwIjoxNTE2OTY1MzQ0LCJhdWQiOiJzaW1wbGljYXRlLm5ldCIsInN1YiI6InBldGVya25lYWxlQGdtYWlsLmNvbSIsImdpdmVuX25hbWUgIjoicGV0ZXIiLCJmYW1pbHlfbmFtZSAiOiJrbmVhbGUiLCJFbWFpbCI6ImI1NWRhMjA2N2E1MTRkODNiNmQxMmNiMzg1MjQwNWUxIiwiUm9sZSI6WyJNYW5hZ2VyIiwiQWRtaW5pc3RyYXRvciJdLCJVc2VySWQiOiI5ZGY2ZTY5ZjFhM2M0YmUzYTEzMGI1MTc3MzZlZGI3NyIsIkFjY291bnRJZCI6ImI1NWRhMjA2N2E1MTRkODNiNmQxMmNiMzg1MjQwNWUxIn0.V1ZHA4wX6w3pfQ9oaEtKglgjAMuhTZ-JgnaCyC89Y3Q' 
+ --verbose \
+ --url http://localhost/account \
+ --header 'accept: application/json' \
+ --header 'authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzaW1wbGljYXRlLm5ldCIsImlhdCI6MTQ4NTQyOTM0NCwiZXhwIjoxNTE2OTY1MzQ0LCJhdWQiOiJzaW1wbGljYXRlLm5ldCIsInN1YiI6InBldGVya25lYWxlQGdtYWlsLmNvbSIsImdpdmVuX25hbWUgIjoicGV0ZXIiLCJmYW1pbHlfbmFtZSAiOiJrbmVhbGUiLCJFbWFpbCI6ImI1NWRhMjA2N2E1MTRkODNiNmQxMmNiMzg1MjQwNWUxIiwiUm9sZSI6WyJNYW5hZ2VyIiwiQWRtaW5pc3RyYXRvciJdLCJVc2VySWQiOiI5ZGY2ZTY5ZjFhM2M0YmUzYTEzMGI1MTc3MzZlZGI3NyIsIkFjY291bnRJZCI6ImI1NWRhMjA2N2E1MTRkODNiNmQxMmNiMzg1MjQwNWUxIn0.V1ZHA4wX6w3pfQ9oaEtKglgjAMuhTZ-JgnaCyC89Y3Q' 
+```
+
+## Get current user
+```
+curl --request GET \
+ --verbose \
+ --url http://localhost/user \
+ --header 'accept: application/json' \
+ --header 'authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzaW1wbGljYXRlLm5ldCIsImlhdCI6MTQ4NTQyOTM0NCwiZXhwIjoxNTE2OTY1MzQ0LCJhdWQiOiJzaW1wbGljYXRlLm5ldCIsInN1YiI6InBldGVya25lYWxlQGdtYWlsLmNvbSIsImdpdmVuX25hbWUgIjoicGV0ZXIiLCJmYW1pbHlfbmFtZSAiOiJrbmVhbGUiLCJFbWFpbCI6ImI1NWRhMjA2N2E1MTRkODNiNmQxMmNiMzg1MjQwNWUxIiwiUm9sZSI6WyJNYW5hZ2VyIiwiQWRtaW5pc3RyYXRvciJdLCJVc2VySWQiOiI5ZGY2ZTY5ZjFhM2M0YmUzYTEzMGI1MTc3MzZlZGI3NyIsIkFjY291bnRJZCI6ImI1NWRhMjA2N2E1MTRkODNiNmQxMmNiMzg1MjQwNWUxIn0.V1ZHA4wX6w3pfQ9oaEtKglgjAMuhTZ-JgnaCyC89Y3Q' 
+```
+
+## Get current user
+```
+curl --request GET \
+ --verbose \
+ --url http://localhost/users \
+ --header 'accept: application/json' \
+ --header 'authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJzaW1wbGljYXRlLm5ldCIsImlhdCI6MTQ4NTQyOTM0NCwiZXhwIjoxNTE2OTY1MzQ0LCJhdWQiOiJzaW1wbGljYXRlLm5ldCIsInN1YiI6InBldGVya25lYWxlQGdtYWlsLmNvbSIsImdpdmVuX25hbWUgIjoicGV0ZXIiLCJmYW1pbHlfbmFtZSAiOiJrbmVhbGUiLCJFbWFpbCI6ImI1NWRhMjA2N2E1MTRkODNiNmQxMmNiMzg1MjQwNWUxIiwiUm9sZSI6WyJNYW5hZ2VyIiwiQWRtaW5pc3RyYXRvciJdLCJVc2VySWQiOiI5ZGY2ZTY5ZjFhM2M0YmUzYTEzMGI1MTc3MzZlZGI3NyIsIkFjY291bnRJZCI6ImI1NWRhMjA2N2E1MTRkODNiNmQxMmNiMzg1MjQwNWUxIn0.V1ZHA4wX6w3pfQ9oaEtKglgjAMuhTZ-JgnaCyC89Y3Q' 
 ```

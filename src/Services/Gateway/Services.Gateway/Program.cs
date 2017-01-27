@@ -11,8 +11,6 @@ using ServiceStack.Web;
 using System.Collections.Generic;
 using ServiceStack.Auth;
 using ServiceStack.Configuration;
-using System.Runtime.Serialization;
-using System.Linq;
 
 namespace Services.Gateway
 {
@@ -66,13 +64,24 @@ namespace Services.Gateway
             Plugins.Add(new PostmanFeature());
             Plugins.Add(new CorsFeature());
 
-            Plugins.Add(new AuthFeature(() => new AuthUserSession(),
+            Plugins.Add(new AuthFeature(() => new CustomAuthUserSession(),
                 new IAuthProvider[] {
                     new JwtAuthProviderReader(AppSettings) {
                         Audience = "simplicate.net",
                         HashAlgorithm = "HS256",
                         AuthKeyBase64 = "cXdlcnR5dWlvcGFzZGZnaGprbHp4Y3Zibm0xMjM0NTY=",
-                        RequireSecureConnection = false
+                        RequireSecureConnection = false,
+
+                        PopulateSessionFilter = (session, jwtJson, req) =>
+                        {
+                            var accountId = Guid.Parse(jwtJson["AccountId"]);
+                            var userId = Guid.Parse(jwtJson["UserId"]);
+
+                            var customSession = session as CustomAuthUserSession;
+                            customSession.AccountId = accountId;
+                            customSession.UserId = userId;
+                            session = customSession;
+                        }
                     }
                 }));
 
@@ -92,6 +101,11 @@ namespace Services.Gateway
         }
     }
 
+    public class CustomAuthUserSession : AuthUserSession
+    {
+        public Guid UserId { get; set; }
+        public Guid AccountId { get; set; }
+    }
 
     public class CustomServiceGatewayFactory : ServiceGatewayFactoryBase
     {

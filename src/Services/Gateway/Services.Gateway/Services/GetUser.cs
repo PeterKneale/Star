@@ -7,19 +7,18 @@ using System;
 namespace Services.Gateway
 {
 
-    [Authenticate()]    
-    public class GetUserService : Service
+    [Authenticate()]
+    public class GetUserService : BaseService
     {
         public async Task<GetUserResponse> Get(GetUser request)
         {
-            var UserRequest = new Users.GetUser { Id = Guid.NewGuid() };
+            var getRequest = new Users.GetUser { Id = CurrentUserId };
 
-            var UserResponse = await Gateway.SendAsync(UserRequest);
- 
-            return new GetUserResponse
-            {
-                User = UserResponse.User.ConvertTo<UserModel>()
-            };
+            var getResponse = await Gateway.SendAsync(getRequest);
+
+            var model = getResponse.User.ConvertTo<UserModel>();
+
+            return new GetUserResponse { User = model };
         }
     }
 }

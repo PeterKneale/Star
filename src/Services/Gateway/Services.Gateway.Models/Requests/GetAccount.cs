@@ -4,7 +4,7 @@ using ServiceStack;
 namespace Services.Gateway.Models
 {
     
-    [Route("/account", "GET", Summary = "Get  Account")]
+    [Route("/Account", "GET", Summary = "Get  Account")]
     public class GetAccount : IGet, IReturn<CreateAccountResponse>
     {
         public Guid Id { get; set; }
