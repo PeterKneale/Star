@@ -1,0 +1,14 @@
+@model KubeGen.GatewayServiceModel
+apiVersion: v1
+kind: Service
+metadata:
+  name: @Model.MetaDataName
+  labels:
+    component: @Model.ComponentName
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: default-port
+  selector:
+    component: @Model.Selector

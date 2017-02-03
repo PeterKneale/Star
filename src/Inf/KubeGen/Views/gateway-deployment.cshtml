@@ -1,0 +1,27 @@
+﻿@model KubeGen.GatewayDeploymentModel
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: @Model.MetaDataName
+spec:
+  replicas: 4 
+  template:
+    metadata:
+      labels:
+        component: @Model.ComponentName
+    spec:
+      containers:
+        - name: api-con
+          image: @Model.Image
+          livenessProbe:
+              httpGet:
+                path: /health/alive
+                port: 80
+          readinessProbe: 
+              httpGet:
+                path: /health/ready
+                port: 80
+          ports:
+            - containerPort: 80
+              name: default-port

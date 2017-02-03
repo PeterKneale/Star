@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: gateway-gateway-deploy
+spec:
+  replicas: 4 
+  template:
+    metadata:
+      labels:
+        component: gateway-gateway-pod
+    spec:
+      containers:
+        - name: api-con
+          image: tutum/hello-world
+          livenessProbe:
+              httpGet:
+                path: /health/alive
+                port: 80
+          readinessProbe: 
+              httpGet:
+                path: /health/ready
+                port: 80
+          ports:
+            - containerPort: 80
+              name: default-port

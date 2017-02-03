@@ -14,15 +14,29 @@ namespace KubeGen
         public static string ConstructApiService(string service, string environment)
         {
             var serviceScopeFactory = Generator.InitializeServices();
-            var model = GetApiServiceModel(service, environment);
+            var model = GetApiServiceModel(service);
             var content = Generator.RenderViewAsync(serviceScopeFactory, "api-service", model).Result;
             return content;
         }
-        public static string ConstructApiIngress(string service, string environment)
+        public static string ConstructGatewayDeployment(string name, string environment)
         {
             var serviceScopeFactory = Generator.InitializeServices();
-            var model = GetApiIngressModel(service, environment);
-            var content = Generator.RenderViewAsync(serviceScopeFactory, "api-ingress", model).Result;
+            var model = GetGatewayDeploymentModel(name, environment);
+            var content = Generator.RenderViewAsync(serviceScopeFactory, "gateway-deployment", model).Result;
+            return content;
+        }
+        public static string ConstructGatewayService(string name, string environment)
+        {
+            var serviceScopeFactory = Generator.InitializeServices();
+            var model = GetGatewayServiceModel(name);
+            var content = Generator.RenderViewAsync(serviceScopeFactory, "gateway-service", model).Result;
+            return content;
+        }
+        public static string ConstructGatewayIngress(string service, string environment)
+        {
+            var serviceScopeFactory = Generator.InitializeServices();
+            var model = GetGatewayIngressModel(service, environment);
+            var content = Generator.RenderViewAsync(serviceScopeFactory, "gateway-ingress", model).Result;
             return content;
         }
         public static string BuildDatabaseDeploymentManifest(string environment)
@@ -37,7 +51,7 @@ namespace KubeGen
             var model = new ApiDeploymentModel
             {
                 Name = api,
-                Image = Registry.GetImage(api, environment),
+                Image = Registry.GetAmiImage(api, environment),
                 Database = new DatabaseConnectionModel
                 {
                     Name = Config.GetDatabaseName(environment),
@@ -48,7 +62,7 @@ namespace KubeGen
             };
             return model;
         }
-        static ApiServiceModel GetApiServiceModel(string api, string environment)
+        static ApiServiceModel GetApiServiceModel(string api)
         {
             var model = new ApiServiceModel
             {
@@ -56,9 +70,26 @@ namespace KubeGen
             };
             return model;
         }
-        static ApiIngressModel GetApiIngressModel(string api, string environment)
+        static GatewayDeploymentModel GetGatewayDeploymentModel(string name, string environment)
         {
-            var model = new ApiIngressModel
+            var model = new GatewayDeploymentModel
+            {
+                Name = name,
+                Image = Registry.GetGatewayImage(name, environment),
+            };
+            return model;
+        }
+        static GatewayServiceModel GetGatewayServiceModel(string api)
+        {
+            var model = new GatewayServiceModel
+            {
+                Name = api
+            };
+            return model;
+        }
+        static GatewayIngressModel GetGatewayIngressModel(string api, string environment)
+        {
+            var model = new GatewayIngressModel
             {
                 Name = api,
                 Domain = Config.GetDomain(environment)

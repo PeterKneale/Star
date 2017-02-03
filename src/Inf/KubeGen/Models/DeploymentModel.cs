@@ -1,7 +1,4 @@
-﻿// Copyright (c) .NET Foundation. All rights reserved.
-// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-
-namespace KubeGen
+﻿namespace KubeGen
 {
     public class ApiDeploymentModel
     {
@@ -9,8 +6,14 @@ namespace KubeGen
         public string Image { get; set; }
         public string ComponentName { get { return $"{Name}-api-pod"; } }
         public string MetaDataName { get { return $"{Name}-api-deploy"; } }
-
         public DatabaseConnectionModel Database { get; set; }
+    }
+    public class GatewayDeploymentModel
+    {
+        public string Name { get; set; }
+        public string Image { get; set; }
+        public string ComponentName { get { return $"{Name}-gateway-pod"; } }
+        public string MetaDataName { get { return $"{Name}-gateway-deploy"; } }
     }
     public class ApiServiceModel
     {
@@ -20,14 +23,22 @@ namespace KubeGen
         public string ComponentName { get { return $"{Name}-svc"; } }
         public string Selector { get { return $"{Name}-api-pod"; } }
     }
-    public class ApiIngressModel
+    public class GatewayServiceModel
+    {
+        public string Name { get; set; }
+
+        public string MetaDataName { get { return $"{Name}-svc"; } }
+        public string ComponentName { get { return $"{Name}-svc"; } }
+        public string Selector { get { return $"{Name}-gateway-pod"; } }
+    }
+    public class GatewayIngressModel
     {
         public string Name { get; set; }
         public string Domain { get; set; }
         public string Host { get { return $"{Name}.{Domain}"; } }
         public string MetaDataName { get { return $"{Name}-ingress"; } }
         public string ComponentName { get { return $"{Name}-ingress"; } }
-        public string Selector { get { return $"{Name}-api-svc"; } }
+        public string Selector { get { return $"{Name}-gateway-svc"; } }
     }
     public class DatabaseConnectionModel
     {
