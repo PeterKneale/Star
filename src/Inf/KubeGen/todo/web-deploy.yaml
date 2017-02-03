@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: web-deploy-pod
+spec:
+  replicas: 2 
+  template:
+    metadata:
+      labels:
+        component: web-pod
+    spec:
+      containers:
+        - name: web-con
+          image: gcr.io/simplicate-sparrow-project/web-dev
+          livenessProbe:
+              httpGet:
+                path: /
+                port: 80
+          readinessProbe: 
+              httpGet:
+                path: /
+                port: 80
+          ports:
+            - containerPort: 80
+              name: web-port

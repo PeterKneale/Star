@@ -1,0 +1,38 @@
+﻿@model KubeGen.DeploymentModel
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: @Model.MetaDataName
+spec:
+  replicas: 2 
+  template:
+    metadata:
+      labels:
+        component: @Model.ComponentName
+    spec:
+      containers:
+        - name: api-con
+          image: @Model.Image
+          livenessProbe:
+              httpGet:
+                path: /health/alive
+                port: 80
+          readinessProbe: 
+              httpGet:
+                path: /health/ready
+                port: 80
+          env:
+            - name: DB_HOST
+              value: @Model.Database.Host
+            - name: DB_PORT
+              value: @Model.Database.Port
+            - name: DB_DATABASE
+              value: @Model.Database.Name
+            - name: DB_USERNAME
+              value: @Model.Database.UserName
+            - name: DB_PASSWORD
+              value: @Model.Database.Password
+          ports:
+            - containerPort: 80
+              name: api-port
