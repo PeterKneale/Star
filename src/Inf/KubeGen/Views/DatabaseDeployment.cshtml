@@ -1,0 +1,26 @@
+@model KubeGen.DatabaseDeploymentModel
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: @Model.MetaDataName
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        component: @Model.ComponentName
+    spec:
+      containers:
+          - name: db-con
+            image: @Model.Image
+            env:
+              - name: POSTGRES_DB
+                value: sparrow
+              - name: POSTGRES_USER
+                value: sparrow
+              - name: POSTGRES_PASSWORD
+                value: password
+            ports:
+              - containerPort: 5432
+                name: db-port

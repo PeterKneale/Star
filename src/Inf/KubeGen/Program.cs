@@ -6,17 +6,23 @@ namespace KubeGen
     {
         public static void Main()
         {
+            Files.Clean();
+            
             string[] services = { "account", "user", "member" };
             string[] environments = { "dev", "qa", "prod" };
 
-            foreach (var service in services)
+            foreach (var environment in environments)
             {
-                foreach (var environment in environments)
+                var databaseManifest = Manifests.BuildDatabaseDeploymentManifest(environment);
+                Files.Write(environment,"database-deployment", databaseManifest);
+
+                foreach (var service in services)
                 {
-                    var deployment = Deployments.GetDeployment(service, environment);
-                    Files.WriteFile(service, environment, "deployment", deployment);
+                    var serviceManifest = Manifests.BuildServiceDeploymentManifest(service, environment);
+                    Files.Write(environment, $"{service}-service-deployment", serviceManifest);
                 }
             }
+            
         }
     }
 }

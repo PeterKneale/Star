@@ -27,7 +27,7 @@ namespace KubeGen
             return serviceProvider.GetRequiredService<IServiceScopeFactory>();
         }
 
-        public static Task<string> RenderViewAsync(IServiceScopeFactory scopeFactory, string template, DeploymentModel model)
+        public static Task<string> RenderViewAsync(IServiceScopeFactory scopeFactory, string template, Object model)
         {
             using (var serviceScope = scopeFactory.CreateScope())
             {

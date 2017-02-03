@@ -3,22 +3,32 @@
 
 namespace KubeGen
 {
-    public class DeploymentModel
+    public class ServiceDeploymentModel
     {
         public string Name { get; set; }
+        public string Image { get; set; }
         public string ComponentName { get { return $"{Name}-api-pod"; } }
         public string MetaDataName { get { return $"{Name}-api-deploy-pod"; } }
-        public string Image { get; set; }
-        public DatabaseModel Database { get; set; }
+
+        public DatabaseConnectionModel Database{ get; set; }
     }
-
-    public class DatabaseModel
+    public class DatabaseConnectionModel
     {
-
-        public string Host { get; set; }
-        public string Port { get; set; }
+        public int Port { get; set; }
         public string Name { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
+        public string Host { get { return $"{Name}-service"; } }
+    }
+
+    public class DatabaseDeploymentModel
+    {
+        public string Image { get; set; }
+        public int Port { get; set; }
+        public string Name { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public string ComponentName { get { return $"{Name}-api-pod"; } }
+        public string MetaDataName { get { return $"{Name}-api-deploy-pod"; } }
     }
 }

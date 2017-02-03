@@ -1,17 +1,19 @@
+﻿@model KubeGen.ServiceDeploymentModel
+
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: account-api-deploy-pod
+  name: @Model.MetaDataName
 spec:
   replicas: 2 
   template:
     metadata:
       labels:
-        component: account-api-pod
+        component: @Model.ComponentName
     spec:
       containers:
         - name: api-con
-          image: 123.dkr.ecr.ap-southeast-2.amazonaws.com/account:qa
+          image: @Model.Image
           livenessProbe:
               httpGet:
                 path: /health/alive
@@ -22,15 +24,15 @@ spec:
                 port: 80
           env:
             - name: DB_HOST
-              value: 
+              value: @Model.Database.Host
             - name: DB_PORT
-              value: 
+              value: @Model.Database.Port
             - name: DB_DATABASE
-              value: 
+              value: @Model.Database.Name
             - name: DB_USERNAME
-              value: 
+              value: @Model.Database.UserName
             - name: DB_PASSWORD
-              value: 
+              value: @Model.Database.Password
           ports:
             - containerPort: 80
               name: api-port
