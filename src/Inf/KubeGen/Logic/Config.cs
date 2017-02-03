@@ -6,20 +6,24 @@ namespace KubeGen
     {
         public static string GetDatabaseName(string environment)
         {
-            return $"db-{environment}";
+            return $"star";
         }
         public static string GetDatabaseUserName(string environment)
         {
-            return $"dbuser-{environment}";
+            return $"star{environment}user";
         }
         public static string GetDatabasePassword(string environment)
         {
-            return $"dbpassword-{environment}";
+            return $"star{environment}password";
         }
-        
+
         public static int GetDatabasePort(string environment)
         {
             return 5432;
+        }
+        public static string GetDomain(string environment)
+        {
+            return $"{environment}.kube.nearmapdev.com";
         }
     }
 }

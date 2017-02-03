@@ -16,11 +16,11 @@ spec:
             image: @Model.Image
             env:
               - name: POSTGRES_DB
-                value: sparrow
+                value: @Model.Name
               - name: POSTGRES_USER
-                value: sparrow
+                value: @Model.UserName
               - name: POSTGRES_PASSWORD
-                value: password
+                value: @Model.Password
             ports:
-              - containerPort: 5432
-                name: db-port
+              - containerPort: @Model.Port
+                name: default-port

@@ -7,8 +7,8 @@ namespace KubeGen
         public static void Main()
         {
             Files.Clean();
-            
-            string[] services = { "account", "user", "member" };
+
+            string[] apis = { "account", "user", "member" };
             string[] environments = { "dev", "qa", "prod" };
 
             foreach (var environment in environments)
@@ -16,10 +16,15 @@ namespace KubeGen
                 var databaseManifest = Manifests.BuildDatabaseDeploymentManifest(environment);
                 Files.Write(environment,"database-deployment", databaseManifest);
 
-                foreach (var service in services)
+                foreach (var api in apis)
                 {
-                    var serviceManifest = Manifests.BuildServiceDeploymentManifest(service, environment);
-                    Files.Write(environment, $"{service}-service-deployment", serviceManifest);
+                    var apiDeployment = Manifests.ConstructApiDeployment(api, environment);
+                    var apiService = Manifests.ConstructApiService(api, environment);
+                    var apiIngress = Manifests.ConstructApiIngress(api, environment);
+                    Files.Write(environment, $"{api}-deployment", apiDeployment);
+                    Files.Write(environment, $"{api}-service", apiService);
+                    // TODO: Not sure whether these are necessary
+                    //Files.Write(environment, $"{api}-ingress", apiIngress);
                 }
             }
             

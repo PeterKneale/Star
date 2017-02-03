@@ -1,0 +1,15 @@
+@model KubeGen.ApiIngressModel
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: @Model.MetaDataName
+  labels:
+    component: @Model.ComponentName
+spec:
+  rules:
+  - host: @Model.Host
+    http:
+      paths:
+      - backend:
+          serviceName: @Model.Selector
+          servicePort: 80

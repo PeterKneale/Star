@@ -15,7 +15,9 @@ namespace KubeGen
         {
             var registry = GetAddress();
             var image = $"{registry}/{imageName}:{imageTag}";
-            return image;
+            //return image;
+            return "tutum/hello-world";
+
         }
     }
 }

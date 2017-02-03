@@ -4,14 +4,12 @@ namespace KubeGen
 {
     public class Files
     {
-        const string OutputDir = "..\\Kubernetes";
+        const string RootOutputDir = "..\\Kubernetes";
 
         public static void Write(string environment, string name, string content)
         {
-            var environmentDirectory = $"{OutputDir}\\{environment}";
-
+            var environmentDirectory = GetOutputDirectory(environment);
             var output = $"{environmentDirectory}\\{name}.yaml";
-
             System.IO.File.WriteAllText(output, content);
             Console.WriteLine($"Generated: {output}");
         }
@@ -24,12 +22,16 @@ namespace KubeGen
         }
         public static void Clean()
         {
-            System.IO.Directory.Delete(OutputDir, true);
+            if (System.IO.Directory.Exists(RootOutputDir))
+            {
+                Console.WriteLine($"Cleaning: {RootOutputDir}");
+                System.IO.Directory.Delete(RootOutputDir, true);
+            }
         }
         private static string GetOutputDirectory(string environment)
         {
-            var output = $"{OutputDir}\\{environment}";
-            EnsureDirExists(OutputDir);
+            var output = $"{RootOutputDir}\\{environment}";
+            EnsureDirExists(RootOutputDir);
             EnsureDirExists(output);
             return output;
         }
