@@ -1,0 +1,36 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: user-api-deploy
+spec:
+  replicas: 4 
+  template:
+    metadata:
+      labels:
+        component: user-api-pod
+    spec:
+      containers:
+        - name: api-con
+          image: tutum/hello-world
+          livenessProbe:
+              httpGet:
+                path: /health/alive
+                port: 80
+          readinessProbe: 
+              httpGet:
+                path: /health/ready
+                port: 80
+          env:
+            - name: DB_HOST
+              value: star-service
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_DATABASE
+              value: star
+            - name: DB_USERNAME
+              value: starproduser
+            - name: DB_PASSWORD
+              value: starprodpassword
+          ports:
+            - containerPort: 80
+              name: default-port

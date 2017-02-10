@@ -27,13 +27,17 @@ namespace KubeGen
             return serviceProvider.GetRequiredService<IServiceScopeFactory>();
         }
 
-        public static Task<string> RenderViewAsync(IServiceScopeFactory scopeFactory, string template, Object model)
+        public static Task<string> RenderAsync(IServiceScopeFactory scopeFactory, string template, Object model)
         {
             using (var serviceScope = scopeFactory.CreateScope())
             {
                 var helper = serviceScope.ServiceProvider.GetRequiredService<RazorViewToStringRenderer>();
                 return helper.RenderViewToStringAsync(template, model);
             }
+        }
+        public static string Render(IServiceScopeFactory scopeFactory, string template, Object model)
+        {
+            return RenderAsync(scopeFactory, template, model).Result;
         }
 
         private static void ConfigureDefaultServices(IServiceCollection services, string customApplicationBasePath)

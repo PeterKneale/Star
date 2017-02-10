@@ -1,25 +1,25 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: web-deploy-pod
+  name: gateway-gateway-deploy
 spec:
-  replicas: 2 
+  replicas: 4 
   template:
     metadata:
       labels:
-        component: web-pod
+        component: gateway-gateway-pod
     spec:
       containers:
-        - name: web-con
-          image: gcr.io/simplicate-sparrow-project/web-dev
+        - name: api-con
+          image: tutum/hello-world
           livenessProbe:
               httpGet:
-                path: /
+                path: /health/alive
                 port: 80
           readinessProbe: 
               httpGet:
-                path: /
+                path: /health/ready
                 port: 80
           ports:
             - containerPort: 80
-              name: web-port
+              name: default-port

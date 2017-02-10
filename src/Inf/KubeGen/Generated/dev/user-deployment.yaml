@@ -1,19 +1,17 @@
-﻿@model KubeGen.ApiDeploymentModel
-
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: @Model.MetaDataName
+  name: user-api-deploy
 spec:
   replicas: 4 
   template:
     metadata:
       labels:
-        component: @Model.ComponentName
+        component: user-api-pod
     spec:
       containers:
         - name: api-con
-          image: @Model.Image
+          image: tutum/hello-world
           livenessProbe:
               httpGet:
                 path: /health/alive
@@ -24,15 +22,15 @@ spec:
                 port: 80
           env:
             - name: DB_HOST
-              value: @Model.Database.Host
+              value: star-service
             - name: DB_PORT
-              value: "@Model.Database.Port"
+              value: "5432"
             - name: DB_DATABASE
-              value: @Model.Database.Name
+              value: star
             - name: DB_USERNAME
-              value: @Model.Database.UserName
+              value: stardevuser
             - name: DB_PASSWORD
-              value: @Model.Database.Password
+              value: stardevpassword
           ports:
             - containerPort: 80
               name: default-port

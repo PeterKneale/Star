@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: star-db-deploy
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        component: star-db-pod
+    spec:
+      containers:
+          - name: db-con
+            image: postgres
+            env:
+              - name: POSTGRES_DB
+                value: star
+              - name: POSTGRES_USER
+                value: starqauser
+              - name: POSTGRES_PASSWORD
+                value: starqapassword
+            ports:
+              - containerPort: 5432
+                name: default-port

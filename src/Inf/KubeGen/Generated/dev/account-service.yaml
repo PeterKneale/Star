@@ -1,14 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: account-api-svc
+  name: account-svc
   labels:
-    component: account-api-svc
+    component: account-svc
 spec:
   type: LoadBalancer
   ports:
     - port: 80
-      targetPort: api-port
+      targetPort: default-port
   selector:
-    component: api-pod
-
+    component: account-api-pod
