@@ -3,13 +3,9 @@
 
 ### Create services,pods and ingress 
 ```
-kubectl create namespace infrastructure
 kubectl create namespace star-dev
 kubectl create namespace star-qa
 kubectl create namespace star-prod
-kubectl apply -f ./common  --namespace star-dev
-kubectl apply -f ./common  --namespace star-qa
-kubectl apply -f ./common  --namespace star-prod
 kubectl apply -f ./dev     --namespace star-dev
 kubectl apply -f ./qa      --namespace star-qa
 kubectl apply -f ./prod    --namespace star-prod
